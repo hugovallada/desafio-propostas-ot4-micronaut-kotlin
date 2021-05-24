@@ -1,0 +1,16 @@
+micronaut:
+  application:
+    name: proposta
+datasources:
+  default:
+    url: jdbc:postgresql://localhost:5432/propostas
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: 'postgres'
+    dialect: POSTGRES
+jpa:
+  default:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
