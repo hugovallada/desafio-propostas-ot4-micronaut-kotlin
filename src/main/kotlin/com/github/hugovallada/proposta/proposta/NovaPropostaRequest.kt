@@ -1,5 +1,7 @@
 package com.github.hugovallada.proposta.proposta
 
+import com.github.hugovallada.proposta.proposta.endereco.Endereco
+import com.github.hugovallada.proposta.proposta.endereco.EnderecoRequest
 import io.micronaut.core.annotation.Introspected
 import java.math.BigDecimal
 import javax.validation.constraints.Email
@@ -18,9 +20,12 @@ data class NovaPropostaRequest(
     @field:NotBlank
     val cep: String,
     @field:NotNull @field:Positive
-    val salario: BigDecimal
+    val salario: BigDecimal,
+    @field:NotBlank
+    val numero: String
 ){
-    fun toModel(endereco: Endereco) : Proposta {
+    fun toModel(enderecoRequest: EnderecoRequest) : Proposta {
+        val endereco = Endereco(enderecoRequest.logradouro, enderecoRequest.uf,numero, enderecoRequest.localidade)
         return Proposta(documento, email, nome, endereco, salario)
     }
 }

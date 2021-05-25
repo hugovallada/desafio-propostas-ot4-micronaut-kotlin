@@ -1,4 +1,4 @@
-package com.github.hugovallada.proposta.proposta
+package com.github.hugovallada.proposta.proposta.endereco
 
 import java.util.*
 import javax.persistence.Entity

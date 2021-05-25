@@ -3,7 +3,7 @@ micronaut:
     name: proposta
 datasources:
   default:
-    url: jdbc:postgresql://localhost:5432/propostas
+    url: jdbc:postgresql://localhost:5432/proposta
     driverClassName: org.postgresql.Driver
     username: postgres
     password: 'postgres'

@@ -1,5 +1,6 @@
 package com.github.hugovallada.proposta.proposta
 
+import com.github.hugovallada.proposta.proposta.endereco.Endereco
 import java.math.BigDecimal
 import java.util.*
 import javax.persistence.*
@@ -9,7 +10,7 @@ class Proposta(
     val documento: String,
     val email: String,
     val nome: String,
-    @OneToOne(cascade = [CascadeType.MERGE])
+    @OneToOne(cascade = [CascadeType.MERGE, CascadeType.PERSIST])
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
     val endereco: Endereco,
     val salario: BigDecimal
