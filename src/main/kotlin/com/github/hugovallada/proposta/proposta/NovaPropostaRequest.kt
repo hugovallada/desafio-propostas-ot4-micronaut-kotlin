@@ -3,6 +3,7 @@ package com.github.hugovallada.proposta.proposta
 import com.github.hugovallada.proposta.proposta.endereco.Endereco
 import com.github.hugovallada.proposta.proposta.endereco.EnderecoRequest
 import com.github.hugovallada.proposta.utils.validators.Cep
+import com.github.hugovallada.proposta.utils.validators.Documento
 import io.micronaut.core.annotation.Introspected
 import java.math.BigDecimal
 import javax.validation.constraints.Email
@@ -12,7 +13,7 @@ import javax.validation.constraints.Positive
 
 @Introspected
 data class NovaPropostaRequest(
-    @field:NotBlank
+    @field:NotBlank @field:Documento
     val documento: String,
     @field:Email @field:NotBlank
     val email: String,
