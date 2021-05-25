@@ -53,7 +53,7 @@ internal class PropostaControllerTest{
     }
 
     @Test
-    internal fun `proposta deve ser cadastrada quando dados válidos forem passados`() {
+    internal fun `proposta deve ser cadastrada quando dados validos forem passados`() {
         // Cenário
         propostaRequest = NovaPropostaRequest("44407669538","email@email.com","Hugo","14000090" , BigDecimal(2500), "688")
         val request = HttpRequest.POST("/propostas", propostaRequest)
@@ -73,7 +73,7 @@ internal class PropostaControllerTest{
 
 
     @Test
-    internal fun `um status 422 deve ser retornado quando um documento já cadastrado for passado`() {
+    internal fun `um status 422 deve ser retornado quando um documento ja cadastrado for passado`() {
         propostaRequest = NovaPropostaRequest("44407669539","email@email.com","Hugo","14000090" , BigDecimal(2500), "688")
 
         //Cenário
