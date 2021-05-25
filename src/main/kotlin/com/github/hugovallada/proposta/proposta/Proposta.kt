@@ -1,6 +1,7 @@
 package com.github.hugovallada.proposta.proposta
 
 import com.github.hugovallada.proposta.proposta.endereco.Endereco
+import com.github.hugovallada.proposta.proposta.endereco.StatusProposta
 import java.math.BigDecimal
 import java.util.*
 import javax.persistence.*
@@ -18,4 +19,7 @@ class Proposta(
 
     @Id @GeneratedValue
     var id: UUID? = null
+
+    @Enumerated(value = EnumType.STRING)
+    var situacao: StatusProposta? = null
 }
