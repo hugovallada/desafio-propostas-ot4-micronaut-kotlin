@@ -17,11 +17,12 @@ class PropostaController(
 ) {
 
     @Post
-    fun cadastrarNovaProposta(@Body @Valid request: NovaPropostaRequest) : HttpResponse<Any> {
-        val enderecoResponse = client.buscarEndereco(request.cep)
+    fun cadastrarNovaProposta(@Body @Valid request: NovaPropostaRequest): HttpResponse<Any> {
 
-        if(enderecoResponse.body() == null) {
-            return HttpResponse.badRequest(mapOf(Pair("mensagem","Endereço inválido")))
+        // fazer tratamento de erros caso o resultado do client seja erro
+        val enderecoResponse = client.buscarEndereco(request.cep)
+        if (enderecoResponse.body() == null) {
+            return HttpResponse.badRequest(mapOf(Pair("mensagem", "Endereço inválido")))
         }
 
 
