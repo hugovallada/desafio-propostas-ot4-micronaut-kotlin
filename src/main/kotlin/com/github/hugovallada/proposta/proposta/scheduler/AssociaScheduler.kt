@@ -12,13 +12,12 @@ class AssociaScheduler(
     private val repository: PropostaRepository
 ) {
 
-    @Scheduled(fixedDelay = "100s")
-    fun associarProposta(){
+    //@Scheduled(fixedDelay = "100s")
+    fun associarProposta() {
         val propostas = repository.buscarPropostasElegiveisSemCartao()
 
-        propostas.forEach {
-            proposta ->
-            if(proposta.situacao == StatusProposta.ELEGIVEL){
+        propostas.forEach { proposta ->
+            if (proposta.situacao == StatusProposta.ELEGIVEL) {
                 val associarCartaoEProposta = cartaoClient.associarCartaoEProposta(proposta.id.toString())
                 val cartao = associarCartaoEProposta.toModel()
 
@@ -26,6 +25,22 @@ class AssociaScheduler(
                 repository.update(proposta)
             }
         }
+    }
+
+    @Scheduled(fixedDelay = "100s")
+    fun associarPropostasFuncional() {
+        repository.buscarPropostasElegiveisSemCartao()
+            .run {
+                forEach { proposta ->
+                    if (proposta.situacao == StatusProposta.ELEGIVEL) {
+                        cartaoClient.associarCartaoEProposta(proposta.id.toString())
+                            .run {
+                                proposta.cartao = toModel()
+                                repository.update(proposta)
+                            }
+                    }
+                }
+            }
     }
 
 }
