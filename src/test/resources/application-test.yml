@@ -1,4 +1,22 @@
 datasources:
   default:
-    url: jdbc:tc:postgresql:12:///postgres
-    driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: ''
+    schema-generate: CREATE_DROP
+    dialect: H2
+
+jpa:
+  default:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: create-drop
+##
+# Habilita o log de contexto transacional
+# Ajuda quando você está tendo problemas com erros
+##
+#logger:
+#  levels:
+#    io.micronaut.transaction: DEBUG
