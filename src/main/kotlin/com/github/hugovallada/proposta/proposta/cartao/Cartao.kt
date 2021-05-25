@@ -2,15 +2,15 @@ package com.github.hugovallada.proposta.proposta.cartao
 
 import java.math.BigDecimal
 import java.time.LocalDateTime
+import javax.persistence.Entity
+import javax.persistence.Id
 
-data class CartaoClientResponse(
+@Entity
+class Cartao(
+    @Id
     val id: String,
     val emitidoEm: LocalDateTime,
     val titular: String,
-    val limite: BigDecimal,
-    val idProposta: String
-){
-    fun toModel():Cartao{
-        return Cartao(id, emitidoEm, titular, limite)
-    }
+    val limite: BigDecimal
+) {
 }

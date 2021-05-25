@@ -14,13 +14,16 @@ class AssociaScheduler(
 
     @Scheduled(fixedDelay = "100s")
     fun associarProposta(){
-        val propostas = repository.findAll()
+        val propostas = repository.buscarPropostasElegiveisSemCartao()
 
         propostas.forEach {
             proposta ->
             if(proposta.situacao == StatusProposta.ELEGIVEL){
                 val associarCartaoEProposta = cartaoClient.associarCartaoEProposta(proposta.id.toString())
-                println(associarCartaoEProposta)
+                val cartao = associarCartaoEProposta.toModel()
+
+                proposta.cartao = cartao
+                repository.update(proposta)
             }
         }
     }

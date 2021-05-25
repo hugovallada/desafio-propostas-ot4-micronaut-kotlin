@@ -1,5 +1,6 @@
 package com.github.hugovallada.proposta.proposta
 
+import com.github.hugovallada.proposta.proposta.cartao.Cartao
 import com.github.hugovallada.proposta.proposta.endereco.Endereco
 import com.github.hugovallada.proposta.proposta.endereco.StatusProposta
 import java.math.BigDecimal
@@ -22,4 +23,8 @@ class Proposta(
 
     @Enumerated(value = EnumType.STRING)
     var situacao: StatusProposta? = null
+
+    @OneToOne(cascade = [CascadeType.MERGE])
+    @JoinColumn(name = "cartao_id", referencedColumnName = "id")
+    var cartao: Cartao? = null
 }
