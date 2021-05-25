@@ -19,8 +19,15 @@ class PropostaController(
     @Post
     fun cadastrarNovaProposta(@Body @Valid request: NovaPropostaRequest): HttpResponse<Any> {
 
+        propostaRepository.existsByDocumento(request.documento).run {
+            if(this) {
+                return HttpResponse.badRequest(mapOf(Pair("mensagem", "Já existe uma proposta para esse documento")))
+            }
+        }
+
         // fazer tratamento de erros caso o resultado do client seja erro
         val enderecoResponse = client.buscarEndereco(request.cep)
+
         if (enderecoResponse.body() == null) {
             return HttpResponse.badRequest(mapOf(Pair("mensagem", "Endereço inválido")))
         }
