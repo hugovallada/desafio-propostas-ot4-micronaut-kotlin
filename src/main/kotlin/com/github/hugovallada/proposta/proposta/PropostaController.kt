@@ -3,6 +3,7 @@ package com.github.hugovallada.proposta.proposta
 import com.github.hugovallada.proposta.proposta.endereco.EnderecoClient
 import com.github.hugovallada.proposta.proposta.endereco.StatusProposta
 import io.micronaut.http.HttpResponse
+import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.*
 import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.http.uri.UriBuilder
