@@ -3,12 +3,12 @@ package com.github.hugovallada.proposta.proposta
 import com.github.hugovallada.proposta.proposta.endereco.EnderecoClient
 import com.github.hugovallada.proposta.proposta.endereco.StatusProposta
 import io.micronaut.http.HttpResponse
-import io.micronaut.http.annotation.Body
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Post
+import io.micronaut.http.MediaType
+import io.micronaut.http.annotation.*
 import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.http.uri.UriBuilder
 import io.micronaut.validation.Validated
+import java.util.*
 import javax.transaction.Transactional
 import javax.validation.Valid
 
@@ -46,10 +46,12 @@ class PropostaController(
                 // Verificar pq o Micronaut continua exibindo erros msm dentro do try/catch
                 val situacaoSolicitante = propostaClient.situacaoSolicitante(PropostaClientRequest(this))
 
-                if (situacaoSolicitante.body().resultadoSolicitacao == StatusPropostaClient.SEM_RESTRICAO) {
-                    situacao = StatusProposta.ELEGIVEL
+                if(situacaoSolicitante.body() == null) return HttpResponse.unprocessableEntity()
+
+                situacao = if (situacaoSolicitante.body()?.resultadoSolicitacao == StatusPropostaClient.SEM_RESTRICAO) {
+                    StatusProposta.ELEGIVEL
                 } else {
-                    situacao = StatusProposta.NAO_ELEGIVEL
+                    StatusProposta.NAO_ELEGIVEL
                 }
 
             } catch (httpException: HttpClientResponseException) {
@@ -62,6 +64,13 @@ class PropostaController(
             return HttpResponse.created(uri)
         }
 
+    }
+
+    @Get("/{id}")
+    fun buscarProposta(@PathVariable id: String) : HttpResponse<PropostaResponse> {
+        propostaRepository.findById(UUID.fromString(id)).run {
+            return if (isEmpty) HttpResponse.notFound() else HttpResponse.ok(PropostaResponse(get()))
+        }
     }
 
 
