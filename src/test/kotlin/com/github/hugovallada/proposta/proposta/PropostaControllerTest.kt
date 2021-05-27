@@ -135,7 +135,7 @@ internal class PropostaControllerTest{
     }
 
     @Test // usar o exchange ao invés de retrieve para pegar o corpo da resposta
-    // TODO: Por algum motivo o teste exige que todos os dados de proposta sejam convertidos para o response
+    //É necessário um segundo construtor para o jackson desserializar apenas o necessário
     internal fun `deve retornar os dados da proposta dado um id valido`() {
         // Cenario
         proposta.situacao = StatusProposta.ELEGIVEL
@@ -146,6 +146,7 @@ internal class PropostaControllerTest{
         assertTrue(response.status == HttpStatus.OK)
         //assertEquals(proposta.documento, response.body()?.documento)
     }
+
 
     @Test // O client sempre lança exceptions qnd o status retornado for diferente de 200
     internal fun `deve retornar not found quando o id nao existir no banco`() {
