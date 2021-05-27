@@ -76,9 +76,7 @@ tasks {
         }
     }
 
-    test{
-        useJUnitPlatform()
-    }
+
 
 
 }

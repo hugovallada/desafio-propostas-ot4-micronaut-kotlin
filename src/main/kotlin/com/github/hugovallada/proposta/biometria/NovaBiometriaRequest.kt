@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank
 
 @Introspected
 data class NovaBiometriaRequest(
-    @NotBlank
+    @field:NotBlank
     val fingerPrint: String
 ){
     fun toModel(cartao: Cartao): Biometria {
