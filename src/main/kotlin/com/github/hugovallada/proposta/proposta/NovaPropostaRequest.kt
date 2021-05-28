@@ -17,7 +17,7 @@ data class NovaPropostaRequest(
     val documento: String,
     @field:Email @field:NotBlank
     val email: String,
-    @field:NotBlank
+    @field:NotBlank(message = "O nome não pode estar em branco")
     val nome: String,
     @field:NotBlank @field:Cep
     val cep: String,
