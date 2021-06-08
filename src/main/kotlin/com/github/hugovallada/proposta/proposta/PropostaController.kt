@@ -8,6 +8,8 @@ import io.micronaut.http.annotation.*
 import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.http.uri.UriBuilder
 import io.micronaut.validation.Validated
+import java.lang.RuntimeException
+import java.rmi.server.ServerCloneException
 import java.util.*
 import javax.transaction.Transactional
 import javax.validation.Valid
@@ -23,7 +25,6 @@ class PropostaController(
     @Post
     @Transactional
     fun cadastrarNovaProposta(@Body @Valid request: NovaPropostaRequest): HttpResponse<Any> {
-
         propostaRepository.existsByDocumento(request.documento).run {
             if (this) {
                 return HttpResponse.unprocessableEntity()
